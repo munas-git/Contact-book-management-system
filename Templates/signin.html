@@ -7,22 +7,22 @@
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="signin.css" />
+    <link rel="stylesheet" href="../static/css/signin.css"/>
     <title>Sign in Form</title>
   </head>
   <body>
     <div class="container"> 
         <div class="forms-container"> 
             <div class="signin-signin">
-                <form method ="POST" action="" class="sign-in-form">
+                <form method ="POST"  class="sign-in-form">
                     <h2 class="title">Sign In</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" name="username">
+                        <input type="text" placeholder="Username" name="username" required>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" name= "password">
+                        <input type="password" placeholder="Password" name= "password" required>
                     </div>
                     <input type="submit" value="Login" class="btn solid" />
                 </form>
@@ -37,13 +37,13 @@
               <p>
                 Sign up today and enjoy our fantastic Contact book management system
               </p>
-             <a href="../signup/signup.html">
+             <a href="{{url_for('signup')}}">
               <button class="btn transparent" id="sign-up-btn">
                 Sign up
               </button>
             </a>
             </div>
-            <img src="img/log.svg" class="image" alt="" />
+            <img src="../static/img/log.svg" class="image" alt="" />
         </div>
        
   </body>
