@@ -7,26 +7,26 @@
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="signup.css" />
+    <link rel="stylesheet" href="../static/css/signup.css" />
     <title>Sign up Form</title>
   </head>
   <body>
     <div class="container"> 
         <div class="forms-container"> 
             <div class="signup-signup">
-                <form method="POST" action="" class="sign-up-form">
+                <form method="POST" class="sign-up-form">
                     <h2 class="title">Sign Up</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Username" name= "user_name" required>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="text" placeholder="Email">
+                        <input type="text" placeholder="Email" name= "email" required>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password">
+                        <input type="password" placeholder="Password" name ="password" required>
                     </div>
                     <input type="submit" value="Sign Up" class="btn solid" />
                 </form>
@@ -41,7 +41,7 @@
                   <p>
                     Log back in and continue the journey
                   </p>
-                  <a href="../sign in/signin.html">
+                  <a href="{{url_for('signin')}}">
                   <button class="btn transparent" id="sign-in-btn">
                     Sign in
                   </button>
