@@ -13,18 +13,15 @@ def signup():
     if request.method == "GET":
         return render_template("signup.html")
     else:
-
         # Collecting new users data
         user_name = request.form.get("user_name")
         email = request.form.get("email")
         password = request.form.get("password")
 
-        
-        # Instantiating UserDB class
-        user = UserDB(user_name, email, password)
-        # Inserting new user to database.
-        user.insert_user(user_name, email, password)
-
+        # Instantiating UserTable class
+        database = UserTable(user_name, email, password)
+        # Inserting new user to database(User Table).
+        database.insert_user()
 
         return redirect(url_for('signin'))
 
