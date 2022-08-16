@@ -1,4 +1,5 @@
-from tinydb import TinyDB, Query, where
+from tinydb import TinyDB, Query
+from tinydb.operations import set
 
 
 # Instance of database querier.
@@ -13,7 +14,7 @@ class UserTable():
     Class for operating on Database (UserTable).
     """
 
-    def __init__(self , user_name:str, email:str = 'nil', password:str = 'nil',):
+    def __init__(self , user_name:str, password:str, email:str = 'nil'):
 
         # Parameters for users.
         self.user_name = user_name
@@ -24,7 +25,7 @@ class UserTable():
 
 
     # function to enter new user.
-    def insert_user(self):
+    def insert_user(self) -> None:
         """
         Function inputs new user to the User database table
         """
@@ -38,7 +39,7 @@ class UserTable():
 
 
     # Function to check if a user already exists in the database.
-    def user_exists(self):
+    def user_exists(self) -> bool:
         """
         Function checks for the existence of a user in the database
 
@@ -55,7 +56,7 @@ class UserTable():
 
 
     # Function to delete user
-    def delete_user(self):
+    def delete_user(self) -> None:
         """
         Function deletes user from database with user_name provided
 
@@ -66,7 +67,7 @@ class UserTable():
 
 
     # Function to get user ID
-    def get_id(self):
+    def get_id(self) -> int:
         """
         Function gets user ID from database with user_name provided
 
@@ -92,7 +93,7 @@ class ContactTable():
         self.user_id = user_id
         self.email = email
         # Genetating database table name
-        table_name = str(first_name)+"_"+str(self.last_name)+"_contact_db"
+        table_name = 'user_'+str(self.user_id) #########################################
         # User's contact database creation
         self.users_contact_table = database.table(table_name)
 
@@ -151,9 +152,8 @@ class ContactTable():
         Return:
          nothing 
         """
-        print('first name is ',new_first_name)
-        self.users_contact_table.update(set({self.first_name : new_first_name}), (User.first_name == self.first_name))
-        # self.users_contact_table.update(set(self.first_name, new_first_name), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
+        # self.users_contact_table.update(set('first_name', new_first_name), (User.first_name == self.first_name))
+        self.users_contact_table.update(set('first_name', new_first_name)), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id))
     
 
     def update_last_name(self, new_last_name:str):
@@ -170,8 +170,7 @@ class ContactTable():
         Return:
          nothing 
         """
-        print('last name is ',new_last_name)
-        # self.users_contact_table.update(set(self.last_name, new_last_name), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
+        self.users_contact_table.update(set('last_name', new_last_name), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
     
 
     def update_number(self, new_number:str):
@@ -188,8 +187,7 @@ class ContactTable():
         Return:
          nothing 
         """
-        print('number is ',new_number)
-        # self.users_contact_table.update(set(self.number, new_number), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
+        self.users_contact_table.update(set('number', new_number), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
 
 
     def update_category(self, new_category:str):
@@ -206,8 +204,7 @@ class ContactTable():
         Return:
          nothing 
         """
-        print('Category is ',new_category)
-        # self.users_contact_table.update(set(self.category, new_category), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
+        self.users_contact_table.update(set('category', new_category), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
     
 
     def update_email(self, new_email:str):
@@ -224,10 +221,16 @@ class ContactTable():
         Return:
          nothing 
         """
-        print('email is ', new_email)
-        # self.users_contact_table.update(set(self.email, new_email), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
+        self.users_contact_table.update(set('email', new_email), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
 
 
-contact = ContactTable('Daniel', 'Anchave', '090274663527', 1, 'Family')
-# contact.insert_contact()
-contact.update_first_name('dumebi')
+# contact = ContactTable('munachi', 'ebereonwu', '08141822937', 1, 'friend')
+# # contact.insert_contact()
+# contact.update_first_name('david')
+
+# test = UserTable('einsteinmuna', 'einsteinmunachiso@gmail.com', 'muna123')
+# user_id = test.get_id()
+# test.insert_user()
+# test_1 = ContactTable('abraham', 'ogudu', '09036274527', user_id, 'friend', 'ogudu11@gmail.com')
+# # test_1.insert_contact()
+# test_1.update_last_name('school-mate')
