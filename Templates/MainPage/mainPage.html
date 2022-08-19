@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="mainPage.css" />
+    <script
+      src="https://kit.fontawesome.com/188eb5eaaf.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <h1><i class="fa-solid fa-phone"></i> ContactList</h1>
+        <div class="contacts">
+          <h6>Contacts</h6>
+          <ul>
+            <li>
+              <a href="#"><i class="fa-solid fa-user"></i> All Contacts</a>
+            </li>
+            <li>
+              <a href="#"><i class="fa-solid fa-star"></i> My Favourites</a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-clock-rotate-left"></i> Recently Added</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="groups">
+          <h6>Groups<i class="fa-thin fa-circle-plus"></i></h6>
+          <ul>
+            <li><a href="#">Family</a></li>
+            <li><a href="#">Colleagues</a></li>
+            <li><a href="#">Friends</a></li>
+          </ul>
+        </div>
+        <div class="bottom_nav">
+          <ul>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main_content">
+        <div class="header">
+          <h1>All Contacts (total number of contact in DB)</h1>
+          <div class="nav_icons">
+            <a href="#"><i class="fa-solid fa-gear"></i></a>
+            <a href="#"><i class="fa-solid fa-bell"></i></a>
+            <a href="#"><i class="fa-thin fa-circle"></i></a>
+          </div>
+        </div>
+        <div class="body">
+         <!-- <div class="body_nav">-->
+            <div class="search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input id="searchbar" onkeyup="searchContact()" type="text" placeholder="Search by name, tags" />
+            </div>
+            <div class="nav_icons">
+              <select name="languages" id="lang">
+                <option value="javascript">Sort By</option>
+                <option value="asc">Ascending Alphabet Order</option>
+                <option value="dec">Descending Alphabet Order</option>
+              </select>
+              <button class="modal_btn"><i class="fa-solid fa-plus"></i> <h5>Add Contact</h5></button></i>
+            </div>
+            
+          <!--</div>-->
+        </div>
+        <div id="p" class="contactlist">
+          
+        <div class="contact">
+            <div class="main_contact">
+              <div class="contact_name">  
+                <i class="fa-solid fa-user"></i>             
+                 <h5>Jola<p class="role"> Family</p> </h5> 
+ 
+                
+              </div>
+               <div class="contact_other_details">  
+                <i class="fa-solid fa-phone"></i>
+                <h5>09023158962 </h5>   
+              </div>
+              <div class="contact_other_details">  
+                 <i class="fa-solid fa-envelope"></i>
+                 <h5>jolaa@contactlist.com </h5>   
+              </div>
+                        
+            </div>
+            <div class="manage_contact">
+                <div onclick="changeIcon(this)" ">      
+                <i id="fav" class="fa-regular fa-star font-xs">  </i>      
+                </div>   
+                <i  class="modal_btn fa-solid fa-pen-to-square"></i>
+                <i class="fa-solid fa-trash"></i>
+            </div>
+            
+        </div>
+        </div>
+        <div  class="contact_modal">
+          <div class="modal_content">
+    <span class="close">&times;</span>
+    <div>
+    <h1>Add new contact</h1>
+    <form >
+      <h2>Personnel Details</h2>
+      <div class="contact_main_subsection">
+
+        <div class="fname">
+    <label for="fname">Full Name</label>
+    <input type="text" id="fullname" name="fullname" placeholder="Full Name">
+    </div>
+    <div class="lname">
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lname" placeholder="Last Name">
+    </div>
+    </div>
+    
+    <h2>Contact Details</h2>
+      <div class="contact_main_subsection">
+
+        <div >
+    <label for="fname">Number</label>
+    <input type="tel" id="number" name="phoneNumber" placeholder="Phone Number..">
+    </div>
+    <div >
+    <label for="lname">E-mail</label>
+    <input type="email" id="email" name="email" placeholder="Email..">
+    </div>
+    </div>
+          <h2>Category</h2>
+    <label for="category">Category</label>
+    <select id="category" name="category">
+            <option value="Family">Category</option>
+      <option value="Family">Family</option>
+      <option value="Friend">Friend</option>
+      <option value="Work">Work</option>
+    </select>
+  
+    <input type="submit" value="Submit" >
+  </form>
+    </div>
+          </div>
+        </div>
+        <div  class="contact_modal">
+          <div class="modal_content">
+    <span class="close">&times;</span>
+    <div>
+    <h1>Edit contact</h1>
+    <form >
+      <h2>Personnel Details</h2>
+      <div class="contact_main_subsection">
+
+        <div class="fname">
+    <label for="fname">Full Name</label>
+    <input type="text" id="fullname" name="fullname" placeholder="Full Name">
+    </div>
+    <div class="lname">
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lname" placeholder="Last Name">
+    </div>
+    </div>
+    
+    <h2>Contact Details</h2>
+      <div class="contact_main_subsection">
+
+        <div >
+    <label for="fname">Number</label>
+    <input type="tel" id="number" name="phoneNumber" placeholder="Phone Number..">
+    </div>
+    <div >
+    <label for="lname">E-mail</label>
+    <input type="email" id="email" name="email" placeholder="Email..">
+    </div>
+    </div>
+          <h2>Category</h2>
+    <label for="category">Category</label>
+    <select id="category" name="category">
+            <option value="Family">Category</option>
+      <option value="Family">Family</option>
+      <option value="Friend">Friend</option>
+      <option value="Work">Work</option>
+    </select>
+  
+    <input type="submit" value="Done" onclick="addContact();">
+  </form>
+    </div>
+          </div>
+        </div>
+
+      </div> 
+    </div>
+
+      <script src="mainPage.js"></script>
+  </body>
+</html>

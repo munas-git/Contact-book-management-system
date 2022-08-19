@@ -1,0 +1,63 @@
+.contact {
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #aaa;
+}
+.contact .main_contact {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact h5 {
+  font-size: medium;
+}
+.contact .manage_contact {
+  justify-content: space-between;
+  width: 20%;
+  display: flex;
+}
+.contact .main_contact .contact_name {
+  display: flex;
+}
+.contact .main_contact .contact_name i {
+  background-color: #1520a6;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.contact .main_contact .contact_name .name_and_role {
+  display: block;
+}
+.contact .main_contact .contact_name h5 {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.contact .main_contact .contact_name p {
+  font-weight: lighter;
+  color: #aaa;
+  font-size: small;
+  margin-left: 45px;
+}
+.contact .main_contact .contact_other_details {
+  display: flex;
+}
+.contact .main_contact i {
+  background-color: #1520a6;
+  padding: 10px;
+  border-radius: 1000px;
+}
+.contact .main_contact .contact_other_details h5 {
+  margin: 10px;
+}
+.fa-star ::before {
+  content: "\f005";
+}
+
+.fav i ::before {
+  content: "\f005";
+  color: yellow;
+}
