@@ -94,11 +94,19 @@ class ContactTable():
         self.user_id = user_id
         self.email = email.lower()
         # Generating database table name using user ID
-        table_name = 'user_'+str(self.user_id)
+        self.table_name = 'user_'+str(self.user_id)+'contacts'
         # User's contact database creation
-        self.users_contact_table = database.table(table_name)
+        self.users_contact_table = database.table(self.table_name)
 
     
+    def table_name(user_id):
+        """
+        Function that returns the contacts table name of an existing user-specific table in the datase
+        """
+        table_name = 'user_'+str(user_id)+'contacts'
+        return table_name
+
+
     def insert_contact(self) -> None:
         """
         Function to insert new contact into the database (Contact table).
@@ -225,7 +233,7 @@ class ContactTable():
         self.users_contact_table.update(set('email', new_email), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
 
 
-    def return_all_contacts(self, table_name) -> list:
+    def return_all_contacts(table_name) -> list:
         """
         Function returns all contacts for the specified user with the table_name provided.
         Input:

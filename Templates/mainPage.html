@@ -40,7 +40,7 @@
         <div class="bottom_nav">
           <ul>
             <li>
-              <a href="{{url_for('signIn')}}" ###########
+              <a href="{{url_for('signIn')}}"
                 ><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a
               >
             </li>
@@ -50,6 +50,8 @@
       <div class="main_content">
         <div class="header">
           <h1>Welcome {{user_name}}, Showing all (20) Contacts</h1>
+          <p>{{all_contacts}}</p>
+
           <div class="nav_icons">
             <a href="#"><i class="fa-solid fa-gear"></i></a>
             <a href="#"><i class="fa-solid fa-bell"></i></a>
@@ -108,17 +110,18 @@
     <span class="close">&times;</span>
     <div>
     <h1>Add new contact</h1>
-    <form >
+    ##################################################################
+    <form method="POST" >
       <h2>Personnel Details</h2>
       <div class="contact_main_subsection">
 
         <div class="fname">
-    <label for="fname">Full Name</label>
-    <input type="text" id="fullname" name="fullname" placeholder="Full Name">
+    <label for="fname">First Name</label>
+    <input type="text" id="fullname" name="first_name" placeholder="First Name">
     </div>
     <div class="lname">
     <label for="lname">Last Name</label>
-    <input type="text" id="lname" name="lname" placeholder="Last Name">
+    <input type="text" id="lname" name="last_name" placeholder="Last Name">
     </div>
     </div>
     
@@ -126,8 +129,8 @@
       <div class="contact_main_subsection">
 
         <div >
-    <label for="fname">Number</label>
-    <input type="tel" id="number" name="phoneNumber" placeholder="Phone Number..">
+    <label for="fname">Phone Number</label>
+    <input type="tel" id="number" name="phone_number" placeholder="Phone Number..">
     </div>
     <div >
     <label for="lname">E-mail</label>
@@ -137,7 +140,7 @@
           <h2>Category</h2>
     <label for="category">Category</label>
     <select id="category" name="category">
-            <option value="Family">Category</option>
+      <option value="Family">Category</option>
       <option value="Family">Family</option>
       <option value="Friend">Friend</option>
       <option value="Work">Work</option>
@@ -145,6 +148,7 @@
   
     <input type="submit" value="Submit" >
   </form>
+  ##################################################################
     </div>
           </div>
         </div>
