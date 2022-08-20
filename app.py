@@ -64,7 +64,7 @@ def signIn():
             Contacts = ContactTable(user_id)
             all_contacts = Contacts.return_all_contacts(table_name)
             sess["user_contacts"] = all_contacts
-            
+
             return redirect(url_for("mainPage"))
         else:
             return redirect(url_for("signIn"))
@@ -106,9 +106,11 @@ def mainPage():
         user_name = sess.get('user_name').title()
         contacts = sess["user_contacts"]
         contacts_amount = len(contacts)
+        # Converting contacts into json
+        contacts = jsonify(contacts)
 
 
-        return render_template("mainPage.html", user_name = user_name, user_contacts = contacts, contacts_amount =contacts_amount)
+        return render_template("mainPage.html", user_name = user_name, user_contacts = contacts, contacts_amount = contacts_amount)
 
 
 if __name__ == '__main__':

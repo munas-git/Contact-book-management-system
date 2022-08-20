@@ -6,7 +6,7 @@ from tinydb.operations import set
 # Instance of database querier.
 User = Query()
 # database creation.
-database = TinyDB('Database/database.json')
+database = TinyDB('Database/contactBookDb.json')
 
 
 
@@ -97,14 +97,6 @@ class ContactTable():
         self.table_name = 'user_'+str(self.user_id)+'_contacts'
         # User's contact database creation
         self.users_contact_table = database.table(self.table_name)
-
-    
-    # def table_name(self):
-    #     """
-    #     Function that returns the contacts table name of an existing user-specific table in the datase
-    #     """
-    #     table_name = 'user_'+str(self.user_id)+'_contacts'
-    #     return table_name
 
 
     def insert_contact(self) -> None:
