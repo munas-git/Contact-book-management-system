@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="mainPage.css" />
+    <link rel="stylesheet" href="../static/css/mainPage.css" />
     <script
       src="https://kit.fontawesome.com/188eb5eaaf.js"
       crossorigin="anonymous"
@@ -40,7 +40,7 @@
         <div class="bottom_nav">
           <ul>
             <li>
-              <a href="#"
+              <a href="{{url_for('signIn')}}" ###########
                 ><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a
               >
             </li>
@@ -49,7 +49,7 @@
       </div>
       <div class="main_content">
         <div class="header">
-          <h1>All Contacts (total number of contact in DB)</h1>
+          <h1>Welcome {{user_name}}, Showing all (20) Contacts</h1>
           <div class="nav_icons">
             <a href="#"><i class="fa-solid fa-gear"></i></a>
             <a href="#"><i class="fa-solid fa-bell"></i></a>
@@ -94,7 +94,7 @@
                         
             </div>
             <div class="manage_contact">
-                <div onclick="changeIcon(this)" ">      
+                <div onclick="changeIcon(this)">      
                 <i id="fav" class="fa-regular fa-star font-xs">  </i>      
                 </div>   
                 <i  class="modal_btn fa-solid fa-pen-to-square"></i>
@@ -197,6 +197,6 @@
       </div> 
     </div>
 
-      <script src="mainPage.js"></script>
+      <script src="../static/js/mainPage.js"></script>
   </body>
 </html>

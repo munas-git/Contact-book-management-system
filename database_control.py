@@ -50,7 +50,7 @@ class UserTable():
         Return:
          Boolean value
         """
-        if self.users_table.search(User.user_name == self.user_name):
+        if self.users_table.search((User.user_name == self.user_name) & (User.password == self.password)):
             return True
         else:
             return False
@@ -64,7 +64,7 @@ class UserTable():
         Input:
         user_name : String 
         """
-        self.users_table.remove(User.user_name == self.user_name)
+        self.users_table.remove((User.user_name == self.user_name) & (User.password == self.password))
 
 
     # Function to get user ID
@@ -85,7 +85,7 @@ class ContactTable():
     Class for operating on Database (ContactTable).
     """
 
-    def __init__(self, first_name:str, last_name:str, number:str, user_id:int, category:str = 'nil', email:str = 'nil'):
+    def __init__(self, user_id:int, first_name:str = 'nil', last_name:str = 'nil', number:str = 'nil', category:str = 'nil', email:str = 'nil'):
 
         self.first_name = first_name.title()
         self.last_name = last_name.title()
@@ -256,24 +256,3 @@ class ContactTable():
         contact_name = contact_name.title()
         contact_details = table.search((User.first_name == contact_name) | (User.last_name == contact_name))
         return contact_details
-
-
-# test = ContactTable('michael', 'weg', '09037463821', 4, 'family', 'brown@gmail.com')
-# test.insert_contact()
-# detail = test.search_for_contact('weg', 'user_4')
-# print(detail)
-
-
-# el = database.get(User.first_name == 'abraham')
-# print(el.doc_id)
-
-
-# result = database.search(User.user_name.matches('einsteinmuna'))
-# print(result)
-# print(database.table('user_1').all())
-
-# table = database.table('user_1').all()
-# print(table.search(User.user_name.matches('einsteinmuna')))
-
-# t = database.get(User.email == 'muna123')
-# print(t)
