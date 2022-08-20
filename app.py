@@ -7,11 +7,9 @@ app = Flask(__name__)
 
 # Defining temporary session dictionary.
 sess = {
-    "user_name" : "",
-    "password" : "",
-    "user_id" : "",
-    "user_contacts" : "",
-    'test' : [1,2,3,4,5]
+    'user_name' : '',
+    'password' : '',
+    'user_id' : ''
 }
 
 @app.route('/landing/')
@@ -49,17 +47,16 @@ def signIn():
         # Else, redirects to signIn page
         if UserTable(user_name, password).user_exists() == True:
             # Instantiating UserTable class
-            Users = UserTable(user_name, password, 'nil')
+            Users = UserTable(user_name, password)
             # Generating user id to be stored in session.
             user_id = Users.get_id()
-            # Storing user session details.
+            # Instantiating ContactTable class
+            Contact = ContactTable(user_id)
+
+            # Storing user log-in details into session.
             sess["user_name"] = user_name
             sess["password"] = password
             sess["user_id"] = user_id
-            # Instantiating ContactTable and returning all existing user contacts
-            Contacts = ContactTable(user_id)
-            all_contacts = Contacts.return_all_contacts()
-            sess["user_contacts"] = all_contacts
             return redirect(url_for("mainPage"))
         else:
             return redirect(url_for("signIn"))
@@ -68,42 +65,13 @@ def signIn():
 @app.route('/mainpage/', methods= ["POST", "GET"])
 def mainPage():
     if request.method == 'GET':
-
-        # Data to be returned to main page
         user_name = sess.get('user_name').title()
-        user_contacts = sess["user_contacts"]
-        user_contacts = jsonify(user_contacts)
-
         return render_template("mainPage.html", user_name = user_name)
     else:
-        # Getting new-contact details from modal.
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
-        number = request.form.get("phone_number")
-        email = request.form.get("email")
-        category = request.form.get("category")
-
-        # User ID from session data.
-        user_id = int(sess.get("user_id"))
-
-        # Instantiating ContactTable.
-        Contacts = ContactTable(user_id, first_name, last_name, number, category, email)
-
-        # Inserting contact into table.
-        Contacts.insert_contact()
-
-        # Updating sessions contact list.
-        user_contacts = Contacts.return_all_contacts()
-        sess["user_contacts"] = user_contacts
-        
-        # Data to be returned to main page
         user_name = sess.get('user_name').title()
-        user_contacts = sess["user_contacts"]
-        user_contacts = jsonify(user_contacts)
-
-
+        contacts = ContactTable()
+        # contact_list = 
         return render_template("mainPage.html", user_name = user_name)
-
 
 if __name__ == '__main__':
     app.run(debug= True)
