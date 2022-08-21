@@ -76,7 +76,7 @@ def mainPage():
 
         # Data to be returned to main page
         user_name = sess.get('user_name').title()
-        contacts = jsonify(sess["user_contacts"]) ###########
+        contacts = sess["user_contacts"]
         contacts_amount = len(sess.get("user_contacts"))
 
         return render_template("mainPage.html", user_name = user_name, contacts_amount = contacts_amount, user_contacts = contacts)
@@ -106,8 +106,6 @@ def mainPage():
         user_name = sess.get('user_name').title()
         contacts = sess["user_contacts"]
         contacts_amount = len(contacts)
-        # Converting contacts into json
-        contacts = jsonify(contacts)
 
 
         return render_template("mainPage.html", user_name = user_name, user_contacts = contacts, contacts_amount = contacts_amount)

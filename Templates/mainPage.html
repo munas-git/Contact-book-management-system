@@ -83,22 +83,24 @@
           <!--</div>-->
         </div>
         <div id="p" class="contactlist">
+        {% for contact_detail in user_contacts %}
+
           <div class="contact">
             <div class="main_contact">
               <div class="contact_name">
                 <i class="fa-solid fa-user"></i>
                 <h5>
-                  Jola
-                  <p class="role">Family</p>
+                  {{contact_detail.first_name + " " + contact_detail.last_name}}
+                  <p class="role">{{contact_detail.category}}</p>
                 </h5>
               </div>
               <div class="contact_other_details">
                 <i class="fa-solid fa-phone"></i>
-                <h5>09023158962</h5>
+                <h5>{{contact_detail.number}}</h5>
               </div>
               <div class="contact_other_details">
                 <i class="fa-solid fa-envelope"></i>
-                <h5>jolaa@contactlist.com</h5>
+                <h5>{{contact_detail.email}}</h5>
               </div>
             </div>
             <div class="manage_contact">
@@ -114,6 +116,7 @@
                 <i class="fa-solid fa-trash"></i>
             </div>
           </div>
+        {% endfor %}
         </div>
 
         <!-- Trigger/Open The Modal -->

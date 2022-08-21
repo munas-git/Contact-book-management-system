@@ -1,4 +1,3 @@
-import re
 from tinydb import TinyDB, Query
 from tinydb.operations import set
 
