@@ -1,5 +1,10 @@
+import uuid
 from tinydb import TinyDB, Query
 from tinydb.operations import set
+
+
+# Instance of UUID
+uuid_gen = uuid.uuid1()
 
 
 # Instance of database querier.
@@ -84,14 +89,18 @@ class ContactTable():
     Class for operating on Database (ContactTable).
     """
 
-    def __init__(self, user_id:int, first_name:str = 'nil', last_name:str = 'nil', number:str = 'nil', category:str = 'nil', email:str = 'nil'):
+    def __init__(self, user_id:int, first_name:str = 'nil', last_name:str = 'nil', address:str = 'nil', organization:str = 'nil', number:str = 'nil', email:str = 'nil', social_handle = 'nil', category:str = 'nil'):
 
         self.first_name = first_name.title()
         self.last_name = last_name.title()
+        self.address = address
+        self.organization = organization
         self.number = number
+        self.email = email.lower()
+        self.social_handle = social_handle
         self.category = category.title()
         self.user_id = user_id
-        self.email = email.lower()
+        
         # Generating database table name using user ID
         self.table_name = 'user_'+str(self.user_id)+'_contacts'
         # User's contact database creation
@@ -112,12 +121,16 @@ class ContactTable():
         """
         self.users_contact_table.insert(
             {
+                'contact_id' : str(uuid_gen),
                 'user_id' : self.user_id,
                 'first_name' : self.first_name,
                 'last_name' : self.last_name,
+                'address' : self.address,
+                'organization' : self.organization,
                 'number' : self.number,
-                'category' : self.category,
                 'email' : self.email,
+                'social_handle' : self.social_handle,
+                'category' : self.category,
             }
         )
 

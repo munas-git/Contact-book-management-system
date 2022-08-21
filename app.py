@@ -74,7 +74,7 @@ def signIn():
 def mainPage():
     if request.method == 'GET':
 
-        # Data to be returned to main page
+        # End-points to be returned to main page.
         user_name = sess.get('user_name').title()
         contacts = sess["user_contacts"]
         contacts_amount = len(sess.get("user_contacts"))
@@ -90,14 +90,12 @@ def mainPage():
         email = request.form.get("email")
         social_handle = request.form.get("social_handle")
         category = request.form.get("category")
-        ################################################# NEW
-
 
         # User ID from session data.
         user_id = sess.get("user_id")
 
         # Instantiating ContactTable.
-        Contacts = ContactTable(user_id, first_name, last_name, number, category, email)
+        Contacts = ContactTable(user_id, first_name, last_name, address, organization, number, email, social_handle, category)
 
         # Inserting contact into table.
         Contacts.insert_contact()
@@ -107,7 +105,7 @@ def mainPage():
         user_contacts = Contacts.return_all_contacts(table_name)
         sess["user_contacts"] = user_contacts
         
-        # Data to be returned to main page
+        # End-points to be returned to main page.
         user_name = sess.get('user_name').title()
         contacts = sess["user_contacts"]
         contacts_amount = len(contacts)
