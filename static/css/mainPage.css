@@ -8,14 +8,52 @@
   text-decoration: none;
   font-family: "Roboto", sans-serif;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0.5px 0 3px grey;
+  /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1520a6;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1520a6;
+}
 body {
   background-color: #ffffff;
 }
 
+body.darkmode {
+  background-color: #000;
+  color: #ffffff;
+}
+.darkmode i {
+  color: white !important;
+}
+.darkmode {
+  background-color: green;
+}
+/*
+.darkmode div {
+  background-color: black;
+} */
+.dark {
+  background-color: #000;
+  color: #ffff;
+}
 .wrapper {
   display: flex;
-  position: relative;
+  flex-wrap: wrap;
 }
 
 .wrapper .sidebar {
@@ -71,12 +109,18 @@ body {
 
 .wrapper .main_content .header {
   padding: 20px;
-  background-color: #ffffff;
   border-bottom: 2px solid #f2f2f3;
+  background-color: #ffffff;
+  position: fixed;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  width: 80%;
+  margin-left: 10px;
 }
 
-.wrapper .main_content .header .nav_icons a {
+.wrapper .main_content .header .nav_icons {
   display: flex;
 }
 
@@ -89,33 +133,23 @@ body {
 } 
 */
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-}
 .body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 80px;
   padding: 20px;
 }
 .nav_icons {
   display: flex;
   gap: 1em;
 }
-.wrapper .main_content .header .nav_icons a {
-  display: block;
+.wrapper .main_content .header .nav_icons {
   font-size: 25px;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  justify-content: space-around;
+  width: 15%;
   text-align: center;
   margin: 0 5px;
-  color: black;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 }
 
 .body {
@@ -178,20 +212,24 @@ body {
   justify-content: space-between;
 } */
 
-.main_content .body .nav_icons .modal_btn {
+.main_content .body .nav_icons button {
   display: flex;
   font-size: large;
   color: #ffffff;
   background-color: #1520a6;
   text-align: center;
   line-height: 25px;
-  padding: 5px;
-  padding-top: 7px;
+  padding: 6px 8px;
   margin-right: 10px;
-  border: none;
+  border: 1px solid #1520a6;
   border-radius: 30px;
-  padding-right: 15px;
 }
+.main_content .body .nav_icons button :hover {
+}
+/* .main_content .body .nav_icons button i {
+  font-size: ;
+  font-weight: bolder;
+} */
 .main_content .contact {
   margin: 20px;
   display: flex;
@@ -248,11 +286,7 @@ body {
   color: #1520a6;
 }
 
-.favourite:hover {
-  /* background-color: red; */
-}
-
-.contact_modal {
+.modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -262,8 +296,6 @@ body {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  /* background-color: rgb(21, 0, 0); Fallback color
-  background-color: rgba(21, 32, 0, 0.4); Black w/ opacity */
   background-color: rgb(21, 32, 166); /*Fallback color*/
   background-color: rgba(21, 32, 166, 0.4); /*Black w/ opacity*/
 }
@@ -271,75 +303,158 @@ body {
   background-color: #fefefe;
   /* background-color: rgba(21, 32, 166, 0.4) */
   margin: auto;
-  padding: 20px;
+  margin-top: 10px;
   border: 1px solid #888;
   width: 50%;
+  height: 90%;
   border-radius: 10px;
   border: none;
+  overflow: scroll;
+  overflow-x: hidden;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
 }
-.modal_content div h1 {
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.modal_header {
+  position: fixed;
+  width: 48%;
+  background-color: #fefefe;
+  overflow: hidden;
+}
+.modal_header h1 {
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 10px;
+  margin-top: 25px;
 }
 form {
   margin-left: 60px;
   margin-right: 50px;
+  padding-bottom: 20px;
 }
-.modal_content div .contact_main_subsection [type="text"],
-.modal_content div [type="text"],
-.modal_content div input[type="tel"],
-.modal_content div input[type="email"],
-.modal_content div select {
-  width: 240px;
+
+.imgDiv {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12%;
+}
+.imgBox {
+  background-size: cover;
+  width: 160px;
+  height: 160px;
+  border: 2px solid #1520a6;
+  resize: both;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1000px;
+}
+.imgBox label {
+  text-align: center;
+  justify-content: center;
+  padding: 100px;
+}
+.imgBox label i {
+  color: #1520a6;
+  font-size: 20px;
+}
+.upload_picture {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+#upload_picture {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  color: #fefefe;
+  background-color: #1520a6;
+  padding: 10px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+}
+.modal_content form table {
+  padding-left: 20px;
+}
+.modal_content form table label {
+  /* font-size: large; */
+  color: #1520a6;
+}
+.modal_content form table input,
+.modal_content form table select {
+  width: 80%;
+
   padding: 12px 20px;
-  margin: 8px 0;
   /* display: inline-block; */
-  border: 1px solid #ccc;
+  border: 1px solid #1520a6;
   border-radius: 4px;
-  box-sizing: border-box;
-  /* box-sizing: unset; */
+  /* box-sizing: border-box; */
+  box-sizing: unset;
 }
-.modal_content div select,
-.modal_content div [type="text"] {
-  width: 97%;
+.modal_content form table select {
+  font-size: medium;
+  color: #1520a6;
+  width: 90%;
 }
-.modal_content .contact_subsection {
-  width: 100%;
-  display: block;
-}
-.modal_content div input[type="submit"] {
-  width: 97%;
+
+.modal_content form table input[type="submit"] {
   background-color: #1520a6;
   color: white;
   padding: 14px 20px;
-  margin: 8px 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-}
-
-.modal_content div form .contact_main_subsection {
-  display: flex;
-  /* justify-content: space-between;
-  background-color: red; */
-}
-/* .modal_content div form .contact_main_subsection div input {
-  background-color: blue;
-  width: 105%;
-} */
-
-.modal_content div form h2 {
-  opacity: 80%;
-  margin-bottom: 20px;
   margin-top: 20px;
+  width: 90%;
+}
+
+.modal_content form table td {
+  padding-left: 10px;
+  padding-bottom: 20px;
+}
+.modal_content form table .text {
+  color: grey;
+  margin-bottom: 20px;
+  margin-top: 100px;
+  padding-left: 0px;
+  font-size: larger;
+}
+
+.modal_content form table .space {
+  padding-bottom: 0px;
 }
 .close {
   color: #aaaaaa;
-  float: right;
   font-size: 28px;
   font-weight: bold;
+  float: right;
+  /* position: fixed;
+  margin-left: 46%; */
 }
 .close:hover,
 .close:focus {
@@ -347,10 +462,166 @@ form {
   text-decoration: none;
   cursor: pointer;
 }
-.red {
-  background-color: #1520a6;
-  color: red;
+.settings {
+  margin: auto;
+  margin-top: -20px;
+  width: 60%;
+  padding: 10px;
 }
-.blue {
-  background-color: green;
+.settings div {
+  display: flex;
+  margin: 0 20px 10px 20px;
+  justify-content: space-between;
+}
+table {
+  width: 100%;
+  /* margin: 10px 0px 20px 0px; */
+  justify-content: center;
+}
+td {
+  text-align: left;
+}
+.settings table button {
+  height: 50%;
+  margin-top: 50px;
+  margin-left: 0px;
+  background-color: #1520a6;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 50px;
+  color: #fefefe;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.settings td p {
+  color: grey;
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.settings table .setting_format input {
+  font-size: 1.5em;
+  border: none;
+  outline: 1px;
+  outline-color: #2433e3;
+  outline-style: dashed;
+  border-radius: 20px;
+  padding-left: 10px;
+  margin-top: 10px;
+  color: #1520a6;
+  margin-left: 40px;
+}
+.settings table .setting_format input:focus {
+  color: #1520a6;
+}
+
+.settings table .setting_format input:disabled {
+  background-color: transparent;
+  outline: none;
+}
+fieldset {
+  border: none;
+}
+fieldset table button {
+  background-color: #1520a6;
+  height: 50%;
+  margin-left: 0px;
+  background-color: #1520a6;
+  border: none;
+  padding: 10px 30px;
+  width: 100%;
+  border-radius: 50px;
+  color: #fefefe;
+
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.upload_picture button {
+  border: none;
+  color: #fefefe;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  color: #fefefe;
+  background-color: #1520a6;
+  padding: 10px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+  width: 23%;
+  font-size: medium;
+}
+#myModal4 input,
+#myModal4 select {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border: none;
+  background-color: transparent;
+  outline: 1px;
+  outline-color: transparent;
+  border-radius: 20px;
+  padding-left: 10px;
+  margin-top: 10px;
+  color: #1520a6;
+  font-size: large;
+}
+#myModal3 input,
+#myModal3 select {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border: none;
+  background-color: transparent;
+  outline: 1px;
+  outline-color: transparent;
+  border-radius: 20px;
+  padding-left: 10px;
+  margin-top: 10px;
+  color: #1520a6;
+  font-size: large;
+}
+#myModal3 table td .space {
+  padding-left: 1000px;
+  color: #888;
+}
+#myModal3 table .text {
+  padding-left: 10px;
+  color: #888;
+  font-size: 1.6em;
+}
+
+#myModal3 table td .space {
+  padding-left: 20px;
+  color: #888;
+}
+#myModal3 table .text {
+  padding-left: 10px;
+  color: #888;
+  font-size: 1.6em;
+}
+
+#myModal4 input::placeholder {
+  color: #1520a6;
+  font-weight: 500;
+  font-size: large;
+}
+#myModal4 table td .space {
+  padding-left: 1000px;
+  color: #888;
+}
+#myModal4 table .text {
+  padding-left: 10px;
+  color: #888;
+  font-size: 1.6em;
+}
+
+#myModal4 table td .space {
+  padding-left: 20px;
+  color: #888;
+}
+#myModal4 table .text {
+  padding-left: 10px;
+  color: #888;
+  font-size: 1.6em;
+}
+
+#myModal3 input::placeholder {
+  color: #1520a6;
+  font-weight: 500;
+  font-size: large;
 }

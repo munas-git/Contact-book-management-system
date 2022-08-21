@@ -76,10 +76,10 @@ def mainPage():
 
         # Data to be returned to main page
         user_name = sess.get('user_name').title()
-        contacts = sess["user_contacts"]
+        contacts = jsonify(sess["user_contacts"]) ###########
         contacts_amount = len(sess.get("user_contacts"))
 
-        return render_template("mainPage.html", user_name = user_name, contacts_amount = contacts_amount)
+        return render_template("mainPage.html", user_name = user_name, contacts_amount = contacts_amount, user_contacts = contacts)
     else:
         # Getting new-contact details from modal.
         first_name = request.form.get("first_name")
