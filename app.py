@@ -84,9 +84,14 @@ def mainPage():
         # Getting new-contact details from modal.
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
+        address = request.form.get("address")
+        organization = request.form.get("organization")
         number = request.form.get("phone_number")
         email = request.form.get("email")
+        social_handle = request.form.get("social_handle")
         category = request.form.get("category")
+        ################################################# NEW
+
 
         # User ID from session data.
         user_id = sess.get("user_id")
