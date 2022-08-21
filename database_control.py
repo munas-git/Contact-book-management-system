@@ -165,7 +165,6 @@ class ContactTable():
         Return:
          nothing 
         """
-        # self.users_contact_table.update(set('first_name', new_first_name), (User.first_name == self.first_name))
         self.users_contact_table.update(set('first_name', new_first_name)), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id))
     
 

@@ -37,6 +37,9 @@
         <div class="panel-container">
             <div class="panel right-panel">
                 <div class="content">
+                  <!-- ####################################################################3 -->
+                  <p class="message" id="message" >{{message}}</p>
+                  <!-- ####################################################################3 -->
                   <h3>One of us ?</h3>
                   <p>
                     Log back in and continue the journey
@@ -51,5 +54,18 @@
               </div>
         </div>
     </div>
+
+
+    <!-- <p class="message" id="message" >{{message}}</p> -->
+
+    <script>
+
+      if (document.getElementById("message").textContent == "User already exists."){
+        alert("User already exists.")
+      }
+      
+    </script>
+
+
   </body>
 </html>
