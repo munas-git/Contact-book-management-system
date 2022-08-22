@@ -28,11 +28,16 @@ def signUp():
         user_name = request.form.get("user_name")
         password = request.form.get("password")
         email = request.form.get("email")
-        # Instantiating UserTable class
-        User = UserTable(user_name, password, email)
-        # Inserting new user to database(User Table).
-        User.insert_user()
-        return redirect(url_for("signIn"))
+        # Checking if user details already exist.
+        if UserTable(user_name, password).user_exists() == True:
+            message = 'access-denied'
+            return render_template("signUp.html", message = message)
+        else:
+            # Instantiating UserTable class
+            User = UserTable(user_name, password, email)
+            # Inserting new user to database(User Table).
+            User.insert_user()
+            return redirect(url_for("signIn"))
 
 
 
@@ -74,7 +79,7 @@ def signIn():
 def mainPage():
     if request.method == 'GET':
 
-        # Data to be returned to main page
+        # End-points to be returned to main page.
         user_name = sess.get('user_name').title()
         contacts = sess["user_contacts"]
         contacts_amount = len(sess.get("user_contacts"))
@@ -84,15 +89,18 @@ def mainPage():
         # Getting new-contact details from modal.
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
+        address = request.form.get("address")
+        organization = request.form.get("organization")
         number = request.form.get("phone_number")
         email = request.form.get("email")
+        social_handle = request.form.get("social_handle")
         category = request.form.get("category")
 
         # User ID from session data.
         user_id = sess.get("user_id")
 
         # Instantiating ContactTable.
-        Contacts = ContactTable(user_id, first_name, last_name, number, category, email)
+        Contacts = ContactTable(user_id, first_name, last_name, address, organization, number, email, social_handle, category)
 
         # Inserting contact into table.
         Contacts.insert_contact()
@@ -102,7 +110,7 @@ def mainPage():
         user_contacts = Contacts.return_all_contacts(table_name)
         sess["user_contacts"] = user_contacts
         
-        # Data to be returned to main page
+        # End-points to be returned to main page.
         user_name = sess.get('user_name').title()
         contacts = sess["user_contacts"]
         contacts_amount = len(contacts)

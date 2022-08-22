@@ -37,6 +37,9 @@
         <div class="panel-container">
             <div class="panel right-panel">
                 <div class="content">
+                  <!-- ####################################################################3 -->
+                  <p class="message" id="message" >{{message}}</p>
+                  <!-- ####################################################################3 -->
                   <h3>One of us ?</h3>
                   <p>
                     Log back in and continue the journey
@@ -51,5 +54,18 @@
               </div>
         </div>
     </div>
+
+
+    <!-- Handles User-exist message #######################################################-->
+    <script>
+
+      if (document.getElementById("message").textContent == "access-denied"){
+        const alert_message = "User-name already exist, try signing in."
+        alert(alert_message)
+      }
+      
+    </script>
+    <!-- Handles User-exist message #######################################################-->
+
   </body>
 </html>
