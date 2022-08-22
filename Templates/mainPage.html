@@ -24,8 +24,7 @@
             </li>
             <li>
               <a href="#"
-                ><i class="fa-solid fa-clock-rotate-left"></i> Recently Added</a
-              >
+                ><i class="fa-solid fa-clock-rotate-left"></i> Recently Added</a>
             </li>
           </ul>
         </div>
@@ -83,44 +82,61 @@
           <!--</div>-->
         </div>
         <div id="p" class="contactlist">
+         <table>
+          
         {% for contact_detail in user_contacts %}
-
-          <div class="contact">
-            <div class="main_contact">
-              <div class="contact_name">
-                <i class="fa-solid fa-user"></i>
-                <h5>
-                  {{contact_detail.first_name + " " + contact_detail.last_name}}
+              <tr>
+                <td  >
+                  <span>
+                   <i class="fa-solid fa-user"></i>
+                  </span>
+                </td>
+                <td class="c_details" style="width: 20%;">
+                  <h5>
+                     {{contact_detail.first_name + " " + contact_detail.last_name}}
                   <p class="role">{{contact_detail.category}}</p>
-                </h5>
-              </div>
-              <div class="contact_other_details">
-                <i class="fa-solid fa-phone"></i>
-                <h5>{{contact_detail.number}}</h5>
-              </div>
-              <div class="contact_other_details">
-                <i class="fa-solid fa-envelope"></i>
-                <h5>{{contact_detail.email}}</h5>
-              </div>
-            </div>
-            <div class="manage_contact">
-                <div onclick="changeIcon(this)">      
+                  </h5>
+                </td>
+                <td >
+                  <span>
+                    <i class="fa-solid fa-phone"></i>
+                  </span>
+                </td>
+                <td class="c_details" >
+                 <h5>{{contact_detail.number}}</h5>
+                </td>
+                <td >
+                  <span>
+                    <i class="fa-solid fa-envelope"></i>
+                  </span>
+                </td>
+                <td class="c_details" >
+                  <h5>{{contact_detail.email}}</h5>                  
+                </td>
+                <td class="m_icon">
+                   <div onclick="changeIcon(this)">      
                 <i id="fav" class="fa-regular fa-star font-xs">  </i>      
-                </div>   
-                 <i href="#myModal4" class="modal_btn fa-solid fa-eye"></i>
-
-             
-                <i href="#myModal2"
-                id="edit_contact"
-                 class="modal_btn fa-solid fa-pen-to-square"></i>
-                <i class="fa-solid fa-trash"></i>
-            </div>
-          </div>
+                   </div>   
+                </td>
+                <td class="m_icon">
+                    <i href="#myModal4" class="modal_btn fa-solid fa-eye"></i>
+                </td>
+                <td class="m_icon">
+                    <i href="#myModal2" class="modal_btn fa-solid fa-pen-to-square"></i>
+                </td>
+                <td class="m_icon">
+                    <i class="fa-solid fa-trash"></i>
+                </td>
+              </tr>
+              
         {% endfor %}
+            </table>
+
+
         </div>
 
-        <!-- Trigger/Open The Modal -->
-<div id="myModal1" class="modal">
+        <!-- Modals -->
+        <div id="myModal1" class="modal">
           <!-- Modal content -->
           <div class="modal_content">
             <div class="modal_header">
@@ -173,6 +189,7 @@
                         placeholder="Full Name"
                         size="20"
                         autocomplete="cc-given-name"
+                        required
                       />
                     </td>
                     <td>
@@ -183,6 +200,7 @@
                         placeholder="Last Name"
                         size="22"
                         autocomplete="family-name"
+                        required
                       />
                     </td>
                   </tr>
@@ -235,6 +253,7 @@
                         name="phone_number"
                         placeholder="Phone Number"
                         size="25"
+                        required
                       />
                     </td>
                     <td>
@@ -270,8 +289,8 @@
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <select id="category" name="category">
-                        <option value="Family">Category</option>
+                      <select id="category" name="category"  required> 
+                        <option value="">Category</option>
                         <option value="Family">Family</option>
                         <option value="Friend">Friend</option>
                         <option value="Work">Work</option>
