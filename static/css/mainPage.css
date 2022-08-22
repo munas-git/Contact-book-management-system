@@ -230,6 +230,52 @@ body.darkmode {
   font-size: ;
   font-weight: bolder;
 } */
+.contactlist table {
+  margin-left: 25px;
+  padding-right: 25px;
+  border-collapse: collapse;
+  width: 95%;
+}
+.contactlist table tr {
+  padding-left: 25px;
+  margin-right: 25px;
+  /* background-color: red; */
+  border-bottom: 1px solid grey;
+  /* background-color: red; */
+}
+td {
+  /* background-color: red; */
+}
+.contactlist table tr td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+.contactlist table tr .m_icon {
+  /* background-color: green; */
+  /* width: 2%; */
+  padding-left: 15px;
+  color: #1520a6;
+}
+/* .contactlist table tr .c_details {
+  padding-left: 0px;
+  /* width: 12%; 
+} */
+.contactlist table tr td span {
+  background-color: #1520a6;
+  padding: 8px;
+  border-radius: 50px;
+  color: white;
+  margin-right: -20px;
+}
+.contactlist table tr td h5 {
+  font-size: medium;
+}
+.contactlist table tr td p {
+  font-weight: lighter;
+  color: #aaa;
+  font-size: small;
+}
 .main_content .contact {
   margin: 20px;
   display: flex;
