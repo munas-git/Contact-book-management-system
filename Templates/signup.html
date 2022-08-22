@@ -56,16 +56,16 @@
     </div>
 
 
-    <!-- <p class="message" id="message" >{{message}}</p> -->
-
+    <!-- Handles User-exist message #######################################################-->
     <script>
 
-      if (document.getElementById("message").textContent == "User already exists."){
-        alert("User already exists.")
+      if (document.getElementById("message").textContent == "access-denied"){
+        const alert_message = "User-name already exist, try signing in."
+        alert(alert_message)
       }
       
     </script>
-
+    <!-- Handles User-exist message #######################################################-->
 
   </body>
 </html>

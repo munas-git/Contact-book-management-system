@@ -54,7 +54,7 @@ class UserTable():
         Return:
          Boolean value
         """
-        if self.users_table.search((User.user_name == self.user_name) & (User.password == self.password)):
+        if self.users_table.search(User.user_name == self.user_name):
             return True
         else:
             return False

@@ -30,7 +30,7 @@ def signUp():
         email = request.form.get("email")
         # Checking if user details already exist.
         if UserTable(user_name, password).user_exists() == True:
-            message = 'User already exists.'
+            message = 'access-denied'
             return render_template("signUp.html", message = message)
         else:
             # Instantiating UserTable class
