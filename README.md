@@ -8,5 +8,6 @@ Flask web app for contact details storing, retrieving, updating and deleting.
   - Tinydb (JSON Database).
   
 ## What the main page looks like
-![Main/Post log-in page](https://github.com/munas-git/Contact-book-management-system/blob/main/demo-pic.png)
+<img src= "https://github.com/munas-git/Contact-book-management-system/blob/main/demo-pic.png" width="100%" height="100%"/>
+
 #### Project is currently incomplete
