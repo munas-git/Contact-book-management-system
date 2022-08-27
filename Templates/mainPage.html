@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/mainPage.css" />
+    <script
+      src="https://kit.fontawesome.com/188eb5eaaf.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <h1><i class="fa-solid fa-phone"></i> ContactList</h1>
+        <div class="contacts">
+          <h6>Contacts</h6>
+          <ul>
+            <li>
+              <a href="#"><i class="fa-solid fa-user"></i> All Contacts</a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fa-solid fa-clock-rotate-left"></i> Recently Added</a>
+            </li>
+          </ul>
+        </div>
+        <div class="groups">
+          <h6>Groups</h6>
+          <ul>
+            <li><a href="#">Family</a></li>
+            <li><a href="#">Colleagues</a></li>
+            <li><a href="#">Friends</a></li>
+          </ul>
+        </div>
+        <div class="bottom_nav">
+          <ul>
+            <li>
+              <a href="{{url_for('signIn')}}"
+                ><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main_content">
+        <div class="header">
+          <h1>Welcome {{user_name}}, Showing all ({{contacts_amount}}) Contacts.</h1>
+          <div class="nav_icons">
+            <i href="#myModal3" class="modal_btn fa-solid fa-gear"></i>
+            
+          </div>
+        </div>
+        <div class="body">
+          <!-- <div class="body_nav">-->
+          <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              id="searchbar"
+              onkeyup="searchContact()"
+              type="text"
+              placeholder="Search by name, tags"
+            />
+          </div>
+          <div class="nav_icons">
+            <select name="languages" id="lang">
+              <option value="javascript">Sort By</option>
+              <option value="asc">Ascending Alphabet Order</option>
+              <option value="dec">Descending Alphabet Order</option>
+            </select>
+
+            <button class="modal_btn" href="#myModal1">
+              <i href="#myModal1" class="modal_btn fa-solid fa-plus"></i> Add
+              Contact
+            </button>
+          </div>
+
+          <!--</div>-->
+        </div>
+        <div id="p" class="contactlist">
+         <table id="table">
+          
+        {% for contact_detail in user_contacts %}
+              <tr>
+                <td  >
+                  <span>
+                   <i class="fa-solid fa-user"></i>
+                  </span>
+                </td>
+                <td class="c_details" style="width: 20%;">
+                  <h5>
+                     {{contact_detail.first_name + " " + contact_detail.last_name}}
+                  <p class="role">{{contact_detail.category}}</p>
+                  </h5>
+                </td>
+                <td >
+                  <span>
+                    <i class="fa-solid fa-phone"></i>
+                  </span>
+                </td>
+                <td class="c_details" >
+                 <h5>{{contact_detail.number}}</h5>
+                </td>
+                <td >
+                  <span>
+                    <i class="fa-solid fa-envelope"></i>
+                  </span>
+                </td>
+                <td class="c_details" >
+                  <h5>{{contact_detail.email}}</h5>                  
+                </td>
+               <td class="m_icon">
+                  <button  onclick="changeIcon(this)" >
+                   <i class="fa-regular fa-star"></i>
+                    </button>
+                </td>
+                <td class="m_icon">
+                  <button>
+                    <i href="#myModal4" class="modal_btn fa-solid fa-eye"></i>
+                    </button>
+                </td>
+                <td class="m_icon">
+                  <button>
+                    <i href="#myModal2" class="modal_btn fa-solid fa-pen-to-square"></i>
+                    </button>
+                </td>
+                <td class="m_icon">
+                  <button >
+                    <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+              </tr>
+               
+        {% endfor %}
+            </table>
+
+
+        </div>
+
+        <!-- Modals -->
+        <div id="myModal1" class="modal">
+          <!-- Modal content -->
+          <div class="modal_content">
+            <div class="modal_header">
+              <span class="close">×</span>
+              <h1>Add new Contact</h1>
+            </div>
+            <div class="imgDiv">
+              <div id="add_new_contact" class="imgBox">
+                <!-- <div id="imgBox"> -->
+                <label id="upload_icon" for="profile_pic"
+                  ><i class="fa-solid fa-cloud-arrow-up"></i
+                ></label>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  id="add_profile_pic"
+                  style="display: none"
+                  onchange="loadNewFile(event)"
+
+                />
+              </div>
+            </div>
+            <div class="upload_picture">
+              <label id="upload_picture" for="profile_pic"
+                ><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;
+                Upload Profile Picture</label
+              >
+            </div>
+            <div>
+              <form method="POST">
+                <table>
+                  <tr>
+                    <td class="text">Personnel Details</td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="fname">First Name</label>
+                    </td>
+                    <td class="space">
+                      <label for="lname">Last Name</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        placeholder="First Name"
+                        size="20"
+                        autocomplete="cc-given-name"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        placeholder="Last Name"
+                        size="22"
+                        autocomplete="family-name"
+                        required
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="address">Address </label>
+                    </td>
+                    <td class="space">
+                      <label for="organization">Organization</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        placeholder="Address"
+                        size="22"
+                        autocomplete="home street-address"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="organization"
+                        name="organization"
+                        placeholder="Organization"
+                        size="22"
+                        autocomplete="organization"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">Contact Details</td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="fname">Number</label>
+                    </td>
+                    <td class="space">
+                      <label for="lname">E-mail</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="tel"
+                        id="Phone Number"
+                        name="phone_number"
+                        placeholder="Phone Number"
+                        size="25"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Email"
+                        size="30"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="socialHandle">Social Media</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="number"
+                        name="social_handle"
+                        placeholder="Social Media Handle"
+                        size="20"
+                        autocomplete="username"
+                      />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text">Category</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <select id="category" name="category"  required> 
+                        <option value="">Category</option>
+                        <option value="Family">Family</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Work">Work</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <input type="submit" value="Submit" />
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div>
+        </div>
+
+         <div id="myModal2" class="modal">
+          <!-- Modal content -->
+          <div class="modal_content">
+            <div class="modal_header">
+              <span class="close">×</span>
+              <h1>Edit Profile</h1>
+            </div>
+            <div class="imgDiv">
+              <div id="edit_contact" class="imgBox">
+                <!-- <div id="imgBox"> -->
+<!-- 
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  id="edit_profile_pic"
+                  style="display: none"
+                /> -->
+              </div>
+            </div>
+            <div class="upload_picture">
+              <label id="upload_picture" for="profile_pic"
+                ><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;
+                Change Profile Picture</label
+              >
+            </div>
+            <div>
+              <form>
+                <table>
+                  <tr>
+                    <td class="text">Personnel Details</td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="ec_fname">First Name</label>
+                    </td>
+                    <td class="space">
+                      <label for="ec_lname">Last Name</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="ec_fname"
+                        name="ec_fname"
+                        placeholder="Full Name"
+                        size="20"
+                        autocomplete="cc-given-name"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="ec_lname"
+                        name="ec_lname"
+                        placeholder="Last Name"
+                        size="22"
+                        autocomplete="family-name"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="ec_address">Address </label>
+                    </td>
+                    <td class="space">
+                      <label for="ec_organization">Organization</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="ec_address"
+                        name="ec_address"
+                        placeholder="Address"
+                        size="22"
+                        autocomplete="home street-address"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="ec_organization"
+                        name="ec_organization"
+                        placeholder="Organization"
+                        size="22"
+                        autocomplete="organization"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">Contact Details</td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="ec_nuber">Number</label>
+                    </td>
+                    <td class="space">
+                      <label for="ec_email">E-mail</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="tel"
+                        id="ec_number"
+                        name="ec_phoneNumber"
+                        placeholder="Phone Number"
+                        size="25"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="ec_email"
+                        id="ec_email"
+                        name="email"
+                        placeholder="Email"
+                        size="30"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space">
+                      <label for="ec_socialHandle">Social Media</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="ec_socialHandle"
+                        name="ec_socialHandle"
+                        placeholder="Social Media Handle"
+                        size="20"
+                        autocomplete="username"
+                      />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text">Category</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <select id="ec_category" name="category">
+                        <option value="Family">Category</option>
+                        <option value="Family">Family</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Work">Work</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <input type="submit" value="Submit" name="add_contact" />
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div id="myModal3" class="modal">
+          <!-- Modal content -->
+          <div class="modal_content">
+            <div class="modal_header">
+              <span class="close">×</span>
+              <h1>Manage Profile </h1>
+            </div>
+            <div class="imgDiv">
+              <div id="manage_contact" class="imgBox">
+                <!-- <div id="imgBox"> -->
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  id="profile_pic"
+                  style="display: none"
+                  onchange="loadNewFile(event)"
+                />
+              </div>
+            </div>
+            <div class="upload_picture">
+              <label id="upload_picture" for="profile_pic"
+                ><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Change
+                Profile Picture</label
+              >
+              <button
+                type="button"
+                onclick="toggleEnable('manage_contact')"
+              >
+                <i class="fa-solid  fa-solid fa-pen-to-square"></i> &nbsp; Edit 
+                Profile
+              </button>
+            </div>
+
+            <div>
+              <form  >
+                <fieldset id="manage_contact" disabled>
+                <table>
+                  <tr >
+                    <td class="text">Personnel Details</td>
+                    
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <hr>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space">First Name</td>
+                    <td class="space">
+                      <p>Last Name</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="uc_fname"
+                        name="uc_fname"
+                        placeholder="value from be"
+                        size="20"
+                        autocomplete="cc-given-name"
+                        
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="uc_lname"
+                        name="uc_lname"
+                        placeholder="Last Name from be"
+                        size="22"
+                        autocomplete="family-name"
+                                              />
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td class="space"><p>Address</p></td>
+                    <td class="space"><p>Organization</p></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="uc_address"
+                        name="uc_address"
+                        placeholder="Address from BE"
+                        size="22"
+                        autocomplete="home street-address"
+                                              />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="uc_organization"
+                        name="uc_organization"
+                        placeholder="Organization from BE"
+                        size="22"
+                        autocomplete="organization"
+                        
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">Contact Details</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <hr>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space"><p>Number</p></td>
+                    <td class="space"><p>E-mail</p></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="tel"
+                        id="uc_number"
+                        name="uc_phoneNumber"
+                        placeholder="Phone Number from BE"
+                        
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="email"
+                        id="uc_email"
+                        name="uc_email"
+                        placeholder="Email from BE"
+                        size="30"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space"><p>Social Media</p></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="uc_socialHandle"
+                        name="uc_socialHandle"
+                        placeholder="Social Media Handle"
+                        size="30"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <button
+                        type="button"
+                      >
+                        Done
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="myModal4" class="modal">
+          <!-- Modal content -->
+          <div class="modal_content">
+            <div class="modal_header">
+              <span class="close">×</span>
+              <h1>View Contact Profile</h1>
+            </div>
+            <div class="imgDiv">
+              <div id="view_contact" class="imgBox">
+                <!-- <div id="imgBox"> -->
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  id="profile_pic"
+                  style="display: none"
+                  onchange="loadNewFile(event)"
+                />
+              </div>
+            </div>
+            <div class="upload_picture">
+              <label id="upload_picture" for="profile_pic"
+                ><i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Change
+                Profile Picture</label
+              >
+              <button
+                type="button"
+                onclick="toggleEnable('view_contact')"
+              >
+                <i class="fa-solid  fa-solid fa-pen-to-square""></i> &nbsp; Edit Contact
+                Profile
+              </button>
+            </div>
+
+            <div>
+              <form>
+                <fieldset id="view_contact" disabled>
+                <table>
+                  <tr >
+                    <td class="text">Personnel Details</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <hr>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space">First Name</td>
+                    <td class="space">
+                      <p>Last Name</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="vc_fname"
+                        name="vc_fname"
+                        placeholder="value from be"
+                        size="20"
+                        autocomplete="cc-given-name"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="vc_lname"
+                        name="vc_lname"
+                        placeholder="Last Name from be"
+                        size="22"
+                        autocomplete="family-name"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space"><p>Address</p></td>
+                    <td class="space"><p>Organization</p></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="vc_address"
+                        name="vc_address"
+                        placeholder="Address from BE"
+                        size="22"
+                        autocomplete="home street-address"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        id="vc_organization"
+                        name="vc_organization"
+                        placeholder="Organization from BE"
+                        size="22"
+                        autocomplete="organization"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">Contact Details</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <hr>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space"><p>Number</p></td>
+                    <td class="space"><p>E-mail</p></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="tel"
+                        id="vc_number"
+                        name="vc_phoneNumber"
+                        placeholder="Phone Number from BE"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="email"
+                        id="vc_email"
+                        name="vc_email"
+                        placeholder="Email from BE"
+                        size="30"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space"><p>Social Media</p></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        id="vc_socialHandle"
+                        name="vc_socialHandle"
+                        placeholder="Social Media Handle"
+                        size="30"
+                      />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="text">Category</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <hr>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <select id="vc_category" name="category" >
+                        <option value="Family">Category</option>
+                        <option value="Family">Family</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Work">Work</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <button
+                        type="button"
+                        onclick="toggleEnable('view_contact')"
+                      >
+                        Done
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="delete_modal" class="modal">
+          <div class="delete_modal">
+            
+          <h1>Delete Contact </h1>
+          <p>Are you sure want to delete this contact? Clicking <b> Yes </b> would permmanently delete this contact from yourcontact list </p>
+          <div class="btns">
+            <div onclick="deleteContact()" id="yes" class="delete_btn">Yes</div>
+            <div onclick="doNotDeleteContact()" id="no" class="delete_btn">No</div>
+          </div>
+
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <script src="../static/js/mainPage.js"></script>
+  </body>
+</html>

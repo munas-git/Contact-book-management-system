@@ -1,7 +1,18 @@
 from database_control import *
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 
+
 app = Flask(__name__)
+
+
+# Defining temporary session dictionary.
+sess = {
+    "user_name" : "",
+    "password" : "",
+    "user_id" : "",
+    "table_name" : "",
+    "user_contacts" : "",
+}
 
 @app.route('/landing/')
 def landing():
@@ -9,58 +20,103 @@ def landing():
 
 
 @app.route('/signup/', methods= ["POST", "GET"])
-def signup():
+def signUp():
     if request.method == "GET":
-        return render_template("signup.html")
+        return render_template("signUp.html")
     else:
         # Collecting new users data
         user_name = request.form.get("user_name")
-        email = request.form.get("email")
         password = request.form.get("password")
-
-        # Instantiating UserTable class
-        database = UserTable(user_name, email, password)
-        # Inserting new user to database(User Table).
-        database.insert_user()
-
-        return redirect(url_for('signin'))
+        email = request.form.get("email")
+        # Checking if user details already exist.
+        if UserTable(user_name, password).user_exists() == True:
+            message = 'access-denied'
+            return render_template("signUp.html", message = message)
+        else:
+            # Instantiating UserTable class
+            User = UserTable(user_name, password, email)
+            # Inserting new user to database(User Table).
+            User.insert_user()
+            return redirect(url_for("signIn"))
 
 
 
 @app.route('/signin/', methods= ["POST", "GET"])
-def signin():
-
+def signIn():
     if request.method == "GET":
-        return render_template("signin.html")
+        return render_template("signIn.html")
 
     else:
         user_name = request.form.get("username")
         password = request.form.get("password")
-        print("User name is: ",user_name)
-        print("Password is: ", password)
-        return (f"Thank you, '{user_name}', your login was succesful.")
+
+        # Check if the user exists in the data base. redorects to main page if existing,
+        # Else, redirects to signIn page
+        if UserTable(user_name, password).user_exists() == True:
+            # Instantiating UserTable class
+            Users = UserTable(user_name, password, 'nil')
+            # Generating user id and retreiving table name to be stored in session.
+            user_id = Users.get_id()
+            table_name = 'user_'+str(user_id)+'_contacts'
+
+            # Storing user session details.
+            sess["user_name"] = user_name
+            sess["password"] = password
+            sess["user_id"] = user_id
+            sess["table_name"] = table_name
+
+            # Instantiating ContactTable and returning all existing user contacts
+            Contacts = ContactTable(user_id)
+            all_contacts = Contacts.return_all_contacts(table_name)
+            sess["user_contacts"] = all_contacts
+
+            return redirect(url_for("mainPage"))
+        else:
+            return redirect(url_for("signIn"))
 
 
-data =[
-    { 
-        'id': 1,
-        'name': 'Einstein',
-        'email': 'einsteinmunachiso@gmail.com',
-        'contact_list':
-        [
-            {'name': 'moyo','phone_num': int('08148352787'),'category': 'friend'},
-            {'name': 'james','phone_num': int('08146593631'),'category': 'friend'},
-            {'name': 'mama ♥','phone_num': int('08036578298'),'category': 'family'},
-            {'name': 'dad 😎','phone_num': int('07046274983'),'category': 'family'},
-            {'name': 'timilein','phone_num': int('090937462'),'category': 'friend'},
-        ],
-    }
-]
+@app.route('/mainpage/', methods= ["POST", "GET"])
+def mainPage():
+    if request.method == 'GET':
+
+        # End-points to be returned to main page.
+        user_name = sess.get('user_name').title()
+        contacts = sess["user_contacts"]
+        contacts_amount = len(sess.get("user_contacts"))
+
+        return render_template("mainPage.html", user_name = user_name, contacts_amount = contacts_amount, user_contacts = contacts)
+    else:
+        # Getting new-contact details from modal.
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        address = request.form.get("address")
+        organization = request.form.get("organization")
+        number = request.form.get("phone_number")
+        email = request.form.get("email")
+        social_handle = request.form.get("social_handle")
+        category = request.form.get("category")
+
+        # User ID from session data.
+        user_id = sess.get("user_id")
+
+        # Instantiating ContactTable.
+        Contacts = ContactTable(user_id, first_name, last_name, address, organization, number, email, social_handle, category)
+
+        # Inserting contact into table.
+        Contacts.insert_contact()
+
+        # Updating sessions contact list.
+        table_name = sess["table_name"]
+        user_contacts = Contacts.return_all_contacts(table_name)
+        sess["user_contacts"] = user_contacts
+        
+        # End-points to be returned to main page.
+        user_name = sess.get('user_name').title()
+        contacts = sess["user_contacts"]
+        contacts_amount = len(contacts)
 
 
-@app.route('/api')
-def api():
-    return jsonify(data)
+        return render_template("mainPage.html", user_name = user_name, user_contacts = contacts, contacts_amount = contacts_amount)
 
 
 if __name__ == '__main__':

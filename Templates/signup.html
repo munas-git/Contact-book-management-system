@@ -14,19 +14,19 @@
     <div class="container"> 
         <div class="forms-container"> 
             <div class="signup-signup">
-                <form method="POST" class="sign-up-form">
+                <form method="POST" action="" class="sign-up-form">
                     <h2 class="title">Sign Up</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" name= "user_name" required>
+                        <input type="text" placeholder="Username" name="user_name">
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="text" placeholder="Email" name= "email" required>
+                        <input type="text" placeholder="Email" name="email">
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" name ="password" required>
+                        <input type="password" placeholder="Password" name="password">
                     </div>
                     <input type="submit" value="Sign Up" class="btn solid" />
                 </form>
@@ -37,19 +37,35 @@
         <div class="panel-container">
             <div class="panel right-panel">
                 <div class="content">
+                  <!-- ####################################################################3 -->
+                  <p class="message" id="message" >{{message}}</p>
+                  <!-- ####################################################################3 -->
                   <h3>One of us ?</h3>
                   <p>
                     Log back in and continue the journey
                   </p>
-                  <a href="{{url_for('signin')}}">
+                  <a href="{{url_for('signIn')}}">
                   <button class="btn transparent" id="sign-in-btn">
                     Sign in
                   </button>
                 </a>
                 </div>
-                <img src="img/person.png" class="image" alt="" />
+                <img src="../static/img/log.svg" class="image" alt="" />
               </div>
         </div>
     </div>
+
+
+    <!-- Handles User-exist message #######################################################-->
+    <script>
+
+      if (document.getElementById("message").textContent == "access-denied"){
+        const alert_message = "User-name already exist, try signing in."
+        alert(alert_message)
+      }
+      
+    </script>
+    <!-- Handles User-exist message #######################################################-->
+
   </body>
 </html>
