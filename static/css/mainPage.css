@@ -251,16 +251,17 @@ td {
   padding-bottom: 20px;
   padding-left: 10px;
 }
-.contactlist table tr .m_icon {
-  /* background-color: green; */
-  /* width: 2%; */
-  padding-left: 15px;
-  color: #1520a6;
-}
 /* .contactlist table tr .c_details {
   padding-left: 0px;
   /* width: 12%; 
 } */
+.contactlist table tr .m_icon button {
+  padding: 0;
+  color: #1520a6;
+  border: none;
+  background-color: transparent;
+  font-size: medium;
+}
 .contactlist table tr td span {
   background-color: #1520a6;
   padding: 8px;
@@ -560,8 +561,7 @@ td {
 .settings table .setting_format input:focus {
   color: #1520a6;
 }
-
-.settings table .setting_format input:disabled {
+fieldset:disabled input {
   background-color: transparent;
   outline: none;
 }
@@ -670,4 +670,51 @@ fieldset table button {
   color: #1520a6;
   font-weight: 500;
   font-size: large;
+}
+.delete_modal {
+  background-color: #fefefe;
+  /* background-color: rgba(21, 32, 166, 0.4) */
+  margin: auto;
+  width: 30%;
+  border: 5px solid #ffff00;
+  padding: 10px;
+  margin: auto;
+  margin-top: 10%;
+  border: 1px solid #888;
+  /* width: 50%; */
+  height: 36%;
+  border-radius: 10px;
+  border: none;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  color: #1520a6;
+}
+.delete_modal h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+.delete_modal p {
+  font-size: larger;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 20px;
+}
+.delete_modal .btns {
+  display: flex;
+  padding-top: 20px;
+  margin: auto;
+  width: 80%;
+  justify-content: space-around;
+}
+.delete_modal .btns .delete_btn {
+  background-color: #1520a6;
+  font-size: larger;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 50px;
+  border-radius: 20px;
 }

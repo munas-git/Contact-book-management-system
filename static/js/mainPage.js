@@ -90,27 +90,85 @@ function searchContact() {
     }
   }
 }
+
+var add_image = document.querySelector("#add_profile_pic");
+var uploaded = "";
+
+add_image.addEventListener("change", function () {
+  console.log("first");
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    uploaded = reader.result;
+    document.querySelector("#add_new_contact").style.backgroundImage =
+      "url(${uploaded})";
+  });
+  reader.readAsDataURL(this.files[0]);
+});
+
 //For add contact
 var loadNewFile = function (event) {
   var newContactImg = document.getElementById("add_new_contact");
   var url = URL.createObjectURL(event.target.files[0]);
   newContactImg.style.backgroundImage = "url(" + url + ")";
   console.log(URL.createObjectURL(event.target.files[0]));
-  alert(event.target.files[0].name);
   var upload_icon = document.getElementById("upload_icon");
   upload_icon.style.display = "none";
 };
 //For edit contact
-var loadFile = function (event) {
+var loadEditFile = function (event) {
   var editContactImg = document.getElementById("edit_contact_img");
-  var url = URL.createObjectURL(event.target.files[1]);
+  var url = URL.createObjectURL(event.target.files[0]);
   editContactImg.style.backgroundImage = "url(" + url + ")";
-  console.log(URL.createObjectURL(event.target.files[0]));
+  console.log(URL.createObjectURL(event.target.files[1]));
   console.log("first");
   console.log(URL.createObjectURL(event.target.files[1]));
   alert(event.target.files[0].name);
 };
 
+// var index;
+// var table = document.getElementById("table");
+// for (var i = 0; i < table.rows.length; i++) {
+//   table.rows[i].cells[8].onclick = function () {
+//     index = this.parentElement.rowIndex;
+//     var deleteModal = document.getElementById("delete_modal");
+//     deleteModal.style.display = "block";
+//     table.deleteRow(index);
+
+//     console.log(index);
+//   };
+// }
+// function toggleDeleteModal() {
+//   var deleteModal = document.getElementById("delete_modal");
+//   deleteModal.style.display = "block";
+// }
+function doNotDeleteContact() {
+  var deleteModal = document.getElementById("delete_modal");
+  deleteModal.style.display = "none";
+}
+
+var index;
+var table = document.getElementById("table");
+for (var i = 0; i < table.rows.length; i++) {
+  table.rows[i].cells[9].onclick = function () {
+    var deleteModal = document.getElementById("delete_modal");
+    deleteModal.style.display = "block";
+    window.onclick = function (event) {
+      if (event.target == deleteModal) {
+        deleteModal.style.display = "none";
+      }
+    };
+    var toDelete = this.parentElement.rowIndex;
+    console.log(toDelete);
+    var yes = document.getElementById("yes");
+
+    yes.onclick = function () {
+      console.log(toDelete);
+      index = toDelete;
+      table.deleteRow(index);
+      deleteModal.style.display = "none";
+    };
+  };
+}
 // var imgBox = Array.from(document.getElementsByClassName("imgBox"));
 // var upload_icon = Array.from(document.getElementsByClassName("upload_icon"));
 
@@ -144,6 +202,7 @@ function toggleEnable(id) {
   if (textbox.disabled) {
     // If disabled, do this
     document.getElementById(id).disabled = false;
+    console.log("pop");
   } else {
     // Enter code here
     document.getElementById(id).disabled = true;
