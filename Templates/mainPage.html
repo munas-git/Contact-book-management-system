@@ -83,10 +83,9 @@
         </div>
         <div id="p" class="contactlist">
          <table>
-          
         {% for contact_detail in user_contacts %}
               <tr>
-                <td  >
+                <td>
                   <span>
                    <i class="fa-solid fa-user"></i>
                   </span>
@@ -115,20 +114,19 @@
                 </td>
                 <td class="m_icon">
                    <div onclick="changeIcon(this)">      
-                <i id="fav" class="fa-regular fa-star font-xs">  </i>      
+                <i id="fav" class="fa-regular fa-star font-xs"></i>      
                    </div>   
                 </td>
                 <td class="m_icon">
                     <i href="#myModal4" class="modal_btn fa-solid fa-eye"></i>
                 </td>
                 <td class="m_icon">
-                    <i href="#myModal2" class="modal_btn fa-solid fa-pen-to-square"></i>
+                    <i href="#myModal2" data-target="#myModal2" data-toggle="modal" class="modal_btn fa-solid fa-pen-to-square" data-toogle=""></i>
                 </td>
                 <td class="m_icon">
                     <i class="fa-solid fa-trash"></i>
                 </td>
-              </tr>
-              
+              </tr>   
         {% endfor %}
             </table>
 
@@ -149,7 +147,6 @@
                 <label id="upload_icon" for="profile_pic"
                   ><i class="fa-solid fa-cloud-arrow-up"></i
                 ></label>
-
                 <input
                   type="file"
                   accept="image/*"
@@ -206,7 +203,7 @@
                   </tr>
                   <tr>
                     <td class="space">
-                      <label for="address">Address </label>
+                      <label for="address">Address</label>
                     </td>
                     <td class="space">
                       <label for="organization">Organization</label>
@@ -299,7 +296,7 @@
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <input type="submit" value="Submit" />
+                      <input type="submit" value="Add Contact" name="update_contact"/>
                     </td>
                   </tr>
                 </table>
@@ -355,7 +352,7 @@
                         type="text"
                         id="ec_fname"
                         name="ec_fname"
-                        placeholder="Full Name"
+                        placeholder="First Name"
                         size="20"
                         autocomplete="cc-given-name"
                       />
@@ -465,7 +462,7 @@
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <input type="submit" value="Submit" name="add_contact" />
+                      <input type="submit" value="Update Contact" name="update_contact" />
                     </td>
                   </tr>
                 </table>
@@ -479,7 +476,7 @@
           <div class="modal_content">
             <div class="modal_header">
               <span class="close">×</span>
-              <h1>Manage Profile </h1>
+              <h1>Manage Profile</h1>
             </div>
             <div class="imgDiv">
               <div id="add_new_contact" class="imgBox">
@@ -504,7 +501,7 @@
                 type="button"
                 onclick="toggleEnable('manage_contact')"
               >
-                <i class="fa-solid  fa-solid fa-pen-to-square""></i> &nbsp; Edit 
+                <i class="fa-solid  fa-solid fa-pen-to-square"></i> &nbsp; Edit 
                 Profile
               </button>
             </div>
@@ -651,7 +648,6 @@
             <div class="imgDiv">
               <div id="add_new_contact" class="imgBox">
                 <!-- <div id="imgBox"> -->
-
                 <input
                   type="file"
                   accept="image/*"
@@ -671,7 +667,7 @@
                 type="button"
                 onclick="toggleEnable('view_contact')"
               >
-                <i class="fa-solid  fa-solid fa-pen-to-square""></i> &nbsp; Edit Contact
+                <i class="fa-solid  fa-solid fa-pen-to-square"></i> &nbsp; Edit Contact
                 Profile
               </button>
             </div>
@@ -679,6 +675,7 @@
             <div>
               <form>
                 <fieldset id="view_contact" disabled>
+                {% for contact_detail in user_contacts %}
                 <table>
                   <tr >
                     <td class="text">Personnel Details</td>
@@ -700,7 +697,7 @@
                         type="text"
                         id="vc_fname"
                         name="vc_fname"
-                        placeholder="value from be"
+                        placeholder= "{{contact_detail.first_name}}"
                         size="20"
                         autocomplete="cc-given-name"
                       />
@@ -710,7 +707,7 @@
                         type="text"
                         id="vc_lname"
                         name="vc_lname"
-                        placeholder="Last Name from be"
+                        placeholder="{{contact_detail.last_name}}"
                         size="22"
                         autocomplete="family-name"
                       />
@@ -726,7 +723,7 @@
                         type="text"
                         id="vc_address"
                         name="vc_address"
-                        placeholder="Address from BE"
+                        placeholder="{{contact_detail.address}}"
                         size="22"
                         autocomplete="home street-address"
                       />
@@ -736,7 +733,7 @@
                         type="text"
                         id="vc_organization"
                         name="vc_organization"
-                        placeholder="Organization from BE"
+                        placeholder="{{contact_detail.organization}}"
                         size="22"
                         autocomplete="organization"
                       />
@@ -760,7 +757,7 @@
                         type="tel"
                         id="vc_number"
                         name="vc_phoneNumber"
-                        placeholder="Phone Number from BE"
+                        placeholder="{{contact_detail.number}}"
                       />
                     </td>
                     <td>
@@ -768,7 +765,7 @@
                         type="email"
                         id="vc_email"
                         name="vc_email"
-                        placeholder="Email from BE"
+                        placeholder="{{contact_detail.email}}"
                         size="30"
                       />
                     </td>
@@ -782,7 +779,7 @@
                         type="text"
                         id="vc_socialHandle"
                         name="vc_socialHandle"
-                        placeholder="Social Media Handle"
+                        placeholder="{{contact_detail.social_handle}}"
                         size="30"
                       />
                     </td>
@@ -799,7 +796,7 @@
                   <tr>
                     <td colspan="2">
                       <select id="vc_category" name="category" >
-                        <option value="Family">Category</option>
+                        <option value="Family">"{{contact_detail.category}}"</option>
                         <option value="Family">Family</option>
                         <option value="Friend">Friend</option>
                         <option value="Work">Work</option>
@@ -817,6 +814,7 @@
                     </td>
                   </tr>
                 </table>
+                {% endfor %}
                 </fieldset>
               </form>
             </div>

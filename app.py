@@ -1,5 +1,5 @@
 from database_control import *
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 
 
 app = Flask(__name__)
@@ -66,7 +66,7 @@ def signIn():
             sess["table_name"] = table_name
 
             # Instantiating ContactTable and returning all existing user contacts
-            Contacts = ContactTable(user_id)
+            Contacts = ContactTableSetUp(user_id)
             all_contacts = Contacts.return_all_contacts(table_name)
             sess["user_contacts"] = all_contacts
 
@@ -95,19 +95,31 @@ def mainPage():
         email = request.form.get("email")
         social_handle = request.form.get("social_handle")
         category = request.form.get("category")
+        update_contact = request.form.get("update_contact")
+        contact_id = request.form.get("saved_contact_id")
 
         # User ID from session data.
         user_id = sess.get("user_id")
 
-        # Instantiating ContactTable.
-        Contacts = ContactTable(user_id, first_name, last_name, address, organization, number, email, social_handle, category)
+        # Contact table id generation
+        table_id = 'user_'+str(sess["user_id"])+'_contacts'
 
-        # Inserting contact into table.
-        Contacts.insert_contact()
+        # Instantiating ContactTable and ContactTableManipulation classes.
+        ContactSetUp = ContactTableSetUp(user_id, first_name, last_name, address, organization, number, email, social_handle, category)
+        # ContactManipulation = ContactTableManipulation(table_id,)
 
-        # Updating sessions contact list.
+
+        # Handling different contact CRUD operations.....
+        if update_contact == "Add Contact":
+            # Inserting contact into table.
+            ContactSetUp.insert_contact()
+        # elif update_contact == "Update Contact":
+            # ContactManipulation.update_contact()
+
+        
+        # Updating sessions contact-list data.
         table_name = sess["table_name"]
-        user_contacts = Contacts.return_all_contacts(table_name)
+        user_contacts = ContactSetUp.return_all_contacts(table_name)
         sess["user_contacts"] = user_contacts
         
         # End-points to be returned to main page.

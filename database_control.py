@@ -84,9 +84,9 @@ class UserTable():
 
 
 
-class ContactTable():
+class ContactTableSetUp():
     """
-    Class for operating on Database (ContactTable).
+    Class for Setting up table on Database (ContactTable).
     """
 
     def __init__(self, user_id:int, first_name:str = 'nil', last_name:str = 'nil', address:str = 'nil', organization:str = 'nil', number:str = 'nil', email:str = 'nil', social_handle = 'nil', category:str = 'nil'):
@@ -134,7 +134,29 @@ class ContactTable():
             }
         )
 
-    
+
+    def return_all_contacts(self, table_name) -> list:
+        """
+        Function returns all contacts for the specified user with the table_name provided.
+        Input:
+         self
+         table_name:str - Name of table to return all contacts from
+
+        Return:
+         all_contacts:list 
+
+        """
+        table = database.table(table_name)
+        all_contacts = table.all()
+        return(all_contacts)
+
+
+class ContactTableManipulation():
+
+    def __init__ (self, table_id, contact_id):
+        self.table_id = table_id
+        self.contact_id = contact_id
+
     def delete_contact(self) -> None:
         """
         Function deletes a contact from a specified users account in the database (..contact_table) with contact first_name, last_name, number and user_id provided
@@ -234,25 +256,9 @@ class ContactTable():
          nothing 
         """
         self.users_contact_table.update(set('email', new_email), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
-
-
-    def return_all_contacts(self, table_name) -> list:
-        """
-        Function returns all contacts for the specified user with the table_name provided.
-        Input:
-         self
-         table_name:str - Name of table to return all contacts from
-
-        Return:
-         all_contacts:list 
-
-        """
-        table = database.table(table_name)
-        all_contacts = table.all()
-        return(all_contacts)
     
 
-    def search_for_contact(self, contact_name, table_name) -> list:
+    def search_for_contact(self, contact_id, table_name) -> list:
         """
         Function returns dictionary in list containing matching contacts info.
         Input:
@@ -264,6 +270,23 @@ class ContactTable():
          contact_details: Dictionary in list containing searched contact details.
         """
         table = database.table(table_name)
-        contact_name = contact_name.title()
-        contact_details = table.search((User.first_name == contact_name) | (User.last_name == contact_name))
+        contact_details = table.search(User.contact_id == contact_id)
         return contact_details
+
+
+
+    def update_contact(self, new_last_name:str) -> None:
+            """
+            Function updates a contact last_name for a specified contact for a specified users account in the database (..contact_table) that matchs the provided contact first_name, last_name, number and user_id provided
+
+            Input:
+            self : user_id
+            self : first_name
+            self : last_name
+            self : number
+            new_name : New Last-Name Entery / Former Last-Name Replacement
+
+            Return:
+            nothing 
+            """
+            self.users_contact_table.update(set('last_name', new_last_name), ((User.first_name == self.first_name) & (User.last_name == self.last_name) & (User.number == self.number) & (User.user_id == self.user_id)))
